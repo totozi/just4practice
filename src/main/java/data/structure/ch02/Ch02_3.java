@@ -9,6 +9,7 @@ public class Ch02_3 {
 		int cd; // 기수
 		int dno; // 변환후 자릿수
 		int retry; // again?
+		System.out.println(3/2);
 		char[] cno = new char[32]; // 변환 후 각 자리의 숫자를 넣어두는 문자열
 
 		System.out.println("10진수를 기수 변환합니다.");
@@ -24,10 +25,11 @@ public class Ch02_3 {
 			} while (cd < 2 || cd > 36);
 //			dno = cardConvR(no, cd, cno);
 			dno = cardConv(no, cd, cno);
+//			dno = cardConvd(no, cd, cno);
 
 			System.out.print(cd + "진수로는 ");
 //			for (int i = dno - 1; i >= 0; i--)
-			for (int i = 0; i <= dno; i++)
+			for (int i = 0; i < dno; i++)
 				System.out.print(cno[i]);
 			System.out.println("입니다.");
 
@@ -37,6 +39,7 @@ public class Ch02_3 {
 		if (retry == 2) {
 			System.out.println("종료되었습니다.");
 		}
+		scan.close();
 	}
 
 	private static int cardConvR(int no, int cd, char[] cno) {
@@ -51,36 +54,22 @@ public class Ch02_3 {
 	}
 
 	private static int cardConv(int no, int cd, char[] cno) {
-		int orgNo = no;
 		int digits = 0;
 		String dchar = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-		
-		int rem =0;
+		System.out.println("=====");
+		System.out.println(no);
 		do {
-
+			System.out.println(no / cd + " .... " + no % cd);
 			cno[digits++] = dchar.charAt(no % cd);
-			if (no != orgNo) {
-				System.out.println(no +" ... " + rem);
-				rem = no % cd;
-				no /= cd;
-			}
-			else {
-				System.out.println(no);
-				rem = no % cd;
-				no /= cd;
-			}
-			System.out.println("======");
-			
+			no = no / cd;
 		} while (no != 0);
-		System.out.println(no +" ... " + rem);
-		System.out.println("======");
+
 		char tmp;
-		for (int i = 0; i <= digits / 2; i++) {
+		for (int i = 0; i < digits / 2; i++) {
 			tmp = cno[i];
-			cno[i] = cno[digits - i];
-			cno[digits - i] = tmp;
+			cno[i] = cno[digits - i - 1];
+			cno[digits - i - 1] = tmp;
 		}
-		//TODO 12를 13진수로 하는 경우에 잘 안됨 원인파악 하고 수정할 것
 		return digits;
 	}
 }
